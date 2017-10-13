@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>生命周期</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div ref='app' id="app">{{name}}</div>
+</body>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            name: '秦时明月'
+        },
+        beforeCreate() {
+            console.log('即将创建');
+            console.log(this.$data)
+            console.log(this.$el)
+        },
+        created() {
+            console.log('创建完成');
+            console.log(this.$data)
+            console.log(this.$el)
+        },
+        beforeMount() {
+            console.log('即将挂载');
+            console.log(this.$el)
+        },
+        mounted() {
+            console.log('挂载完成');
+            console.log(this.$el)
+        },
+        beforeUpdate() {
+            console.log('=即将更新渲染=');
+            let name = this.$refs.app.innerHTML;
+            console.log('name' + name);
+        },
+        updated() {
+            console.log('==更新成功==');
+            let name = this.$refs.app.innerHTML;
+            console.log('name' + name);
+        },
+        // 7. beforeDestroy
+        // 调用实例的destroy( )方法可以销毁当前的组件，在销毁前，会触发beforeDestroy钩子。
+        beforeDestroy() {
+            console.log('销毁之前');
+        },
+        destroyed() {
+            console.log('销毁成功');
+        }
+        //         9. actived
+        // keep-alive组件被激活的时候调用。
+
+        // 10. deactivated
+        // keep-alive 组件停用时调用。
+
+        // 关于keep-alive组件的激活和停用，我们后面讲到具体案例再介绍，在这里你只需要知道vue提供了keep-alive组件激活和停用的钩子就可以了。
+    });
+</script>
+
+</html>

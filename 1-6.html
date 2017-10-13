@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>十个指令</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h3>1</h3>
+        <p v-text="msg"></p>
+        <!-- 1,v-text === {{}} -->
+        <h3>2</h3>
+        <p v-html="msgHtml"></p>
+        <!-- 2,v-html 渲染html标签 -->
+        <h3>3</h3>
+        <p v-show="showT">我是true</p>
+        <p v-show="showF">我是false</p>
+        <!-- 3,v-show展示隐藏 -->
+        <h3>4</h3>
+        <p v-if="ifT">ifT我是true</p>
+        <p v-if="ifF">ifF我是false</p>
+        <!-- 4,v-if展示隐藏不渲染 -->
+        <!-- 记住一点：如果需要频繁切换显示/隐藏的，就用 v-show ；如果运行后不太可能切换显示/隐藏的，就用 v-if 。 -->
+        <h3>5</h3>
+        <p v-if="ifElse">我是if</p>
+        <p v-else>我是else</p>
+        <!-- 5,v-if...v-else一起出现只会渲染一个 -->
+        <h3>6</h3>
+        <div v-for="(item,index) in list">{{index}}.{{item}}</div>
+        <!-- 6,v-for提醒：v-for指令除了可以迭代数组，还可以迭代对象和整数。  -->
+        <h3>7</h3>
+        <a :href="link">link</a>
+        <br>
+
+        <!-- 7,v-bind === : 绑定属性-->
+        <h3>8</h3>
+        <button @click="say('Tom')">点击</button>
+        <!-- 8,点击v-on等价于@,事件写在mehods对象里面 -->
+        <br>
+        <h3>9</h3>
+        <input v-model="mesg" type="text">
+        <!-- 9,v-modle实现数据同步更新 -->
+        <h3>10</h3>
+        <p v-once>
+            你输入了{{mesg}}
+        </p>
+        <!-- 10,v-once只执行一次 -->
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            msg: 'hello,vue!',
+            msgHtml: '<b>hello,vue</b>',
+            showT: true,
+            showF: false,
+            ifT: true,
+            ifF: false,
+            ifElse: false,
+            list: ['Tom', 'John', 'Lisa'],
+            link: 'http://www.baidu.com',
+            mesg: 'hello,就一次啊,多了不行'
+        },
+        methods: {
+            say(name) {
+                console.log('hello' + name);
+            }
+        }
+    })
+</script>
+
+</html>

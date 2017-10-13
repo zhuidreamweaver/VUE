@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件之前的通讯--子传父</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <!-- 子传父 -->
+    <div id="app">
+        <son @connect="say"></son>
+    </div>
+    <script>
+        Vue.component('son', {
+            template: `<button @click="send">点击</button>`,
+            data() {
+                return {
+                    msg: '大家伙,我是子组件的数据'
+                }
+            },
+            methods: {
+                send() {
+                    this.$emit('connect', this.msg);
+                }
+            }
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: "我是父组件的数据"
+            },
+            methods: {
+                say(msg) {
+                    console.log(msg)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

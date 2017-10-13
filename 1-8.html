@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件之前的通讯</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <!-- 父传子 -->
+    <div id="app">
+        <son :message="msg"></son>
+    </div>
+    <script>
+        Vue.component('son', {
+            props: ['message'],
+            template: `<div>{{message}}</div>`
+        })
+        const app = new Vue({
+            el: '#app',
+            data: {
+                msg: "我是父组件的数据"
+            }
+        })
+    </script>
+</body>
+
+</html>

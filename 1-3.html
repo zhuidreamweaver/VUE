@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>常用方法四种</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{num1 | toInt}}</p>
+        <p>{{num2 | toInt}}</p>
+        <p>{{num3 | toInt}}</p>
+        <p>合{{sum}}</p>
+        {{a}}
+        <button v-on:click='plus'>加一</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            // 挂载
+            el: '#app',
+            // 数据
+            data: {
+                num1: 33.123,
+                num2: 44,
+                num3: 55,
+                a: 0
+            },
+            // 过滤器
+            filters: {
+                toInt(value) {
+                    return parseInt(value);
+                }
+            },
+            //计算属性
+            computed: {
+                sum() {
+                    return this.num1 + this.num2 + this.num3;
+                }
+            },
+            // 方法
+            methods: {
+                plus() {
+                    return this.a++
+                }
+            },
+            // 观察
+            watch: {
+                a() {
+                    console.log('有变化了,新值' + this.a)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

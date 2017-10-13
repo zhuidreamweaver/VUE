@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>html绑定数据</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <!-- 添加标签元素用v-html修饰 -->
+    <div id="app">
+        <!--v-html="name"-->
+        <!-- 在href前用v-bind:修饰 缩写:href='link'-->
+        <a v-bind:href="link+'/caicai'">百合</a>
+        <button :disabled="dis_true">我是true</button>
+        <button :disabled="dis_false">我是false</button>
+        <!-- false会被解析为取消 -->
+        <p>{{num + 3}}</p>
+        <!-- 支持运算,但是复杂的运算要放在computed -->
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name: '<strong>秦时明月<strong>',
+            link: 'http://www.baihe.com',
+            dis_true: true,
+            dis_false: false,
+            num: 3
+        }
+    })
+</script>
+
+</html>
