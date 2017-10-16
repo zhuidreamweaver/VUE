@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>todo案例</title>
+    <title>备忘录</title>
     <style>
         .edit {
             display: block;
@@ -101,6 +101,7 @@
                         finished: false, //未完成
                         deleted: false //未删除
                     }
+                    console.log(this.list);
                 },
                 // 点击修改任务状态
                 changeState: function(index) {

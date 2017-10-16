@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vuex的三大概念</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <script>
+        // 要使用Vuex， 我们要创建一个实例 store， 我们称之为仓库， 利用这个仓库 store 来对我们的状态进行管理。
+
+        // 核心： State
+        // 上一节我们介绍过， Vuex的作用类似全局对象， 没错， Vuex 使用单一状态树， 用一个对象State包含了整个应用层级的所有状态， 你可以理解为这些状态就是一堆全局变量和数据。
+
+
+        //创建一个 store
+        const store = new Vuex.Store({
+            //state存储应用层的状态
+            state: {
+                count: 5 //总数：5
+            },
+            //派生出来的状态
+            getters: {
+                //ES6 的箭头函数语法
+                newCount: state => state.count * 3
+            },
+            //更改store状态的唯一途径
+            mutations: {
+                increment(state) {
+                    state.count++;
+                }
+            },
+        });
+        //提交一个名为increment的mutation
+        store.commit('increment');
+    </script>
+</body>
+
+</html>
