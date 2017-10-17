@@ -6,10 +6,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>vuex计算器</title>
+    <script src="vue.js"></script>
+    <script src="vuex.js"></script>
+    <style>
+        #app {
+            display: block;
+            padding-top: 160px;
+            width: 326px;
+            background: #e0e0e0;
+        }
+        
+        .result {
+            width: 100%;
+            text-align: right;
+            font-size: 40px;
+            line-height: 50px;
+            min-height: 50px;
+            height: auto;
+            color: #333;
+            word-wrap: break-word;
+        }
+        
+        .enter {
+            width: 100%;
+            text-align: right;
+            color: #666;
+            font-size: 22px;
+            line-height: 46px;
+            height: auto;
+            word-wrap: break-word;
+        }
+        
+        .list::after {
+            clear: both;
+        }
+        
+        .list>div {
+            display: block;
+            float: left;
+            border-bottom: 1px solid #ddd;
+            width: 81.5px;
+            height: 80px;
+            line-height: 80px;
+            font-size: 25px;
+            color: #666;
+            background: #f0f0f0;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .list>div[data-value='clear'] {
+            color: #f04000;
+        }
+        
+        .list>div[data-value='='] {
+            background-color: #f04000;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
-
+    <div id="app">
+        <div class="result">{{result}}</div>
+        <div class="enter">{{enter === ""?0:enter}}</div>
+        <div class="keys">
+            <div class="list">
+                <!-- 键盘区域 -->
+                <keyboard v-for="item in keys" :value="item"></keyboard>
+            </div>
+        </div>
+    </div>
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                result: "", //运算结果
+                enter: "" //输入的值
+            },
+            mutations: {
+                calculate(state, value) {
+                    if (value === '=') {
+                        // 按键为=,进行结果计算
+                        state.result = '=' + eval(state.enter);
+                    } else if (value === 'clear') {
+                        // 按键为clear,清空数据
+                        state.result = state.enter = '';
+                    } else {
+                        // 输入结果enter进行拼接
+                        state.enter += value;
+                    }
+                }
+            }
+        });
+        Vue.component('keyboard', {
+            //接受的参数value,代表键盘值
+            props: ['value'],
+            // 模板
+            template: `<div :data-value="value" @click="getKeyboardValue">
+                        {{value}}
+                    <div>`,
+            methods: {
+                // 点击事件处理函数
+                getKeyboardValue(event) {
+                    // 获取当前按键值
+                    let value = event.target.dataset.value;
+                    // 拖过commit提交mutation
+                    this.$store.commit('calculate', value);
+                }
+            }
+        });
+        // 创建vue实例
+        const app = new Vue({
+            // 挂载元素
+            el: '#app',
+            // ES6语法,相当于"store":store
+            store,
+            data: {
+                // 16个按键值
+                keys: [
+                    'clear', '+', '-', '*',
+                    '7', '8', '9', '/',
+                    '4', '5', '6', '0',
+                    '1', '2', '3', '='
+                ]
+            },
+            // 增加计算属性
+            computed: {
+                result() {
+                    // 通过this.$store获取仓库数据result
+                    return this.$store.state.result;
+                },
+                enter() {
+                    // 通过this.$store获取仓库数据result
+                    return this.$store.state.enter;
+                }
+            }
+        })
+    </script>
 </body>
 
 </html>
